@@ -47,7 +47,7 @@ class Menu:
         day = str(datetime.date.today() + datetime.timedelta(days=1))
         return(self.getDate(day))
     
-    def getWeek(self): #YYYY/MM/DD fomrat
+    def getWeek(self, today=None): #YYYY/MM/DD fomrat
         if today is None:
             today = datetime.date.today()
         monday = today - datetime.timedelta(days = today.weekday())
