@@ -6,7 +6,7 @@ class Menu:
     def __init__(self, menuType="lunch"):
         self.link = f'https://novi.api.nutrislice.com/menu/api/weeks/school/novi-high-school/menu-type/{menuType}/' #?format=json
         
-    def changeSchool(self, menuType="lunch"):
+    def changeMenu(self, menuType="lunch"):
         self.link = f'https://novi.api.nutrislice.com/menu/api/weeks/school/novi-high-school/menu-type/{menuType}/'
     
     def _getData(self, date):
@@ -48,8 +48,8 @@ class Menu:
         return(self.getDate(day))
     
     def getWeek(self, today=None): #YYYY/MM/DD fomrat
-        if today is None:
-            today = datetime.date.today()
+        #if today is None:
+        today = datetime.date.today()
         monday = today - datetime.timedelta(days = today.weekday())
         info = dict()
         for i in range(5):
@@ -59,5 +59,7 @@ class Menu:
                               
 if __name__ == "__main__": 
     school = Menu()
-    print(school.getToday())
-
+    data = school.getWeek("2023/09/18")
+    print(type(data))
+    for day in data.values():
+        print(day["Create"])
