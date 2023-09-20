@@ -8,7 +8,7 @@ class Menu:
         
     def changeMenu(self, menuType="lunch"):
         self.link = f'https://novi.api.nutrislice.com/menu/api/weeks/school/novi-high-school/menu-type/{menuType}/'
-    
+
     def _getData(self, date):
         response = requests.get(self.link + date.replace("-", "/"))
         data = json.loads(response.text)    
@@ -47,9 +47,9 @@ class Menu:
         day = str(datetime.date.today() + datetime.timedelta(days=1))
         return(self.getDate(day))
     
-    def getWeek(self, today=None): #YYYY/MM/DD fomrat
-        #if today is None:
-        today = datetime.date.today()
+    def getWeek(self, weeks=None): #YYYY/MM/DD fomrat
+        #if today is None: #make it weeks
+        today = datetime.date.today() + datetime.timedelta(days = (7*weeks))
         monday = today - datetime.timedelta(days = today.weekday())
         info = dict()
         for i in range(5):
@@ -59,7 +59,18 @@ class Menu:
                               
 if __name__ == "__main__": 
     school = Menu()
-    data = school.getWeek("2023/09/18")
-    print(type(data))
-    for day in data.values():
-        print(day["Create"])
+    myFile = open("food.txt", "w")
+    for i in range(1,5):
+        data = school.getWeek(i)
+        try:
+            for date in data:
+                myFile.write(f"-----------------{date}-----------------\n")
+                myFile.write(f"Create\n")
+                myFile.write(str(data[date]["Create"]) + "\n")
+                myFile.write(f"Global Eats\n")
+                myFile.write(str(data[date]["Global Eats"]) + "\n")
+                print(date, "lunch menu wrote")
+        except:
+            print(date, "error")
+            myFile.write("Error occured")
+    myFile.close()
