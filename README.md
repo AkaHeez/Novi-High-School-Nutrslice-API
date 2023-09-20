@@ -15,3 +15,7 @@ for every station
 
 
 <img width="468" alt="image" src="https://github.com/AkaHeez/Novi-High-School-Nutrslice-scrape/assets/118094954/63152473-75b0-4f14-a65a-9f8761dc2731">
+
+
+
+### This code stores information of the date and then the foods, for the next 5 weeks
